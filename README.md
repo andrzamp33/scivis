@@ -1,4 +1,4 @@
-# Project of scientific visualization for the 2023/2024 academic year.
+# Project of scientific visualization for the 2023/2024 academic year
 **Group members**: Andrea Zampedri (965960), Laura Capella ()
 
 ### What is it about?
