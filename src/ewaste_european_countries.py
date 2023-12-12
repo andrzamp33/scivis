@@ -44,20 +44,17 @@ plt.plot(years, data["Netherlands"][1:], color = "black", label="Netherlands", l
 plt.plot(years, average[1:], color="#b2df8a", label="Average", linewidth=4, linestyle="--")
 
 plt.title("E-waste of European countries")
-#plt.xlabel("Year")
 plt.ylabel("Collection, reuse, and recycling rate (%)")
 
 matplotx.line_labels()
 
 ax = plt.gca()
 
-# Rimuovi i bordi del grafico
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 ax.spines['bottom'].set_visible(False)
 ax.spines['left'].set_visible(False)
 
-# Rendi non visibili le tacchette sull'asse x e y
 ax.tick_params(axis='both', which='both', length=0)
 
 plt.tight_layout()
