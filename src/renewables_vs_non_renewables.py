@@ -15,7 +15,7 @@ geothermal = df_renewable['Geothermal (TWh)']
 plt.style.use("default")
 plt.figure(figsize=(15, 6))
 
-colors_renewable = ["#aec6cf", "#c9e2b3", "#ffeaa7", "#f8c471"]
+colors_renewable = ["#aec6cf", "#c9e2b3", "#ffe97d", "#f8c471"]
 size = 4
 plt.subplot(1, 2, 1)
 
