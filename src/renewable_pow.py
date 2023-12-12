@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotx
 
 # Codice 1: Grafico delle energie rinnovabili
-df_renewable = pd.read_csv("renewable_en.csv")
+df_renewable = pd.read_csv("datasets/renewable_en.csv")
 
 years_renewable = df_renewable['Year']
 hydro = df_renewable['Hydro(TWh)']
@@ -28,5 +28,5 @@ matplotx.line_labels()
 plt.grid(False)
 sns.despine()
 
-plt.savefig("renewable_plot.png")
+plt.savefig("images/renewable_plot.pow")
 plt.show()
