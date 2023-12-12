@@ -18,12 +18,11 @@ data_1 = {
 categories_1 = list(data_1.keys())
 values_1 = list(data_1.values())
 
-# Inverti l'ordine delle categorie e dei valori
+# Inverto l'ordine delle categorie e dei valori
 categories_1 = categories_1[::-1]
 values_1 = values_1[::-1]
 
 colors_1 = ["#ff9999", "#ffb3e6", "#f8c471", "#ffeaa7", "#c9e2b3", "#ffcccc", "#aec6cf", "#b3b3cc"]
-#colors_1 = ["lightgrey", "lightgrey", "#f8c471", "#ffeaa7", "#c9e2b3", "lightgrey", "#aec6cf", "lightgrey"]
 
 # Codice grafico 2
 category_names_2 = ["Hydro", "Biofuel", "Solar", "Geothermal"]
@@ -39,7 +38,6 @@ for indice, riga in data_2.iterrows():
     results_2[riga["Country"]].append(riga["Solar PV (TWh)"])
     results_2[riga["Country"]].append(riga["Geothermal (TWh)"])
 
-# Creazione della figura e degli assi affiancati
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
 
 # Grafico 1
@@ -52,7 +50,6 @@ for index, value in enumerate(values_1):
 ax1.set_xticks([])
 ax1.tick_params(axis='y', which='both', left=False)
 
-# Nascondi i bordi del grafico
 ax1.spines['top'].set_visible(False)
 ax1.spines['right'].set_visible(False)
 ax1.spines['bottom'].set_visible(False)
@@ -75,19 +72,15 @@ ax2.xaxis.set_visible(False)
 ax2.set_xlim(0, np.sum(data, axis=1).max())
 ax2.set_title('Energy generation by major countries')
 
-# Nascondi i bordi del grafico
 ax2.spines['top'].set_visible(False)
 ax2.spines['right'].set_visible(False)
 ax2.spines['bottom'].set_visible(False)
 ax2.spines['left'].set_visible(False)
 
-# Nascondi le lineette a sinistra delle barre
 ax2.tick_params(axis='y', which='both', left=False)
 
-# Regola il layout per evitare sovrapposizioni
 plt.tight_layout()
 
-# Mostra il grafico
 plt.savefig("images/Renewable energy by type and country.png")
 plt.show()
 
