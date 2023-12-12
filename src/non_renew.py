@@ -43,5 +43,7 @@ ax.set_frame_on(False)
 ax.xaxis.set_ticks_position('none')
 ax.yaxis.set_ticks_position('none')
 
+plt.savefig("images/non_renew.png")
+
 # Mostra il grafico
 plt.show()
