@@ -4,7 +4,7 @@ from shapely.geometry import Point
 import matplotlib.pyplot as plt
 
 # Leggi il dataset
-df = pd.read_csv('global-data-on-sustainable-energy.csv')
+df = pd.read_csv('dataset/global-data-on-sustainable-energy.csv')
 
 # Leggi il CSV contenente le informazioni sui continenti
 continents_df = pd.read_csv('continents2.csv')
@@ -53,6 +53,8 @@ ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: int(x)))
 ax.set_frame_on(False)
 ax.xaxis.set_ticks_position('none')
 ax.yaxis.set_ticks_position('none')
+
+plt.savefig("images/global_renew_en.png")
 
 # Mostra il grafico
 plt.show()
