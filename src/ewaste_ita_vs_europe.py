@@ -2,6 +2,12 @@ from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
 
+# Aggiungi etichette sopra le barre con i valori
+def add_labels(ax, bars):
+    for bar in bars:
+        yval = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width() / 2, yval, round(yval, 2), ha='center', va='bottom', color='black', fontsize=8)
+
 plt.style.use("default")
 
 data = pd.read_csv("datasets/ewaste.csv", usecols=["Country", "Waste category", "WST_OPER", "UNIT", "Year", "Value"])
@@ -38,7 +44,7 @@ x_indexes = np.arange(len(years))
 x_indexes_comp = np.arange(len(type))
 width = 0.065
 
-fig, axs = plt.subplots(2, 2, figsize=(12, 8))  # Crea una griglia 2x2
+fig, axs = plt.subplots(2, 2, figsize=(12, 8))
 
 prod_color = "#d2a073"
 col_color = "#c8a58f"
@@ -54,20 +60,13 @@ axs[0, 0].set_xticks(ticks=x_indexes)
 axs[0, 0].set_xticklabels(years)
 axs[0, 0].set_title("Average E-waste recycling in european countries")
 
-# Nascondi le linee degli assi
 axs[0, 0].tick_params(left=False, bottom=False)
-
-# Aggiungi etichette sopra le barre con i valori
-def add_labels(ax, bars):
-    for bar in bars:
-        yval = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width() / 2, yval, round(yval, 2), ha='center', va='bottom', color='black', fontsize=8)
 
 add_labels(axs[0, 0], bar1)
 add_labels(axs[0, 0], bar2)
 add_labels(axs[0, 0], bar3)
 
-# Secondo grafico (identico al primo) nella prima riga a destra
+# Secondo grafico
 bar1 = axs[0, 1].bar(x_indexes - width, mkt_it, width=width, color=prod_color, edgecolor="black", linewidth=0.1)
 bar2 = axs[0, 1].bar(x_indexes, col_it, width=width, color=col_color, edgecolor="black", linewidth=0.1)
 bar3 = axs[0, 1].bar(x_indexes + width, rcy_it, width=width, color=rcy_color, edgecolor="black", linewidth=0.1)
@@ -76,15 +75,13 @@ axs[0, 1].set_xticks(ticks=x_indexes)
 axs[0, 1].set_xticklabels(years)
 axs[0, 1].set_title("E-waste recycling in Italy")
 
-# Nascondi le linee degli assi
 axs[0, 1].tick_params(left=False, bottom=False)
 
-# Aggiungi etichette sopra le barre con i valori
 add_labels(axs[0, 1], bar1)
 add_labels(axs[0, 1], bar2)
 add_labels(axs[0, 1], bar3)
 
-# Terzo grafico (identico al primo) nella seconda riga e al centro tra i primi due
+# Terzo grafico
 bar1 = axs[1, 0].bar(x_indexes_comp - width, [mkt_it[0], col_it[0], rcy_it[0]], width=width, color=[prod_color, col_color, rcy_color], edgecolor="black", linewidth=0.1)
 bar2 = axs[1, 0].bar(x_indexes_comp, [mkt[0], col[0], rcy[0]], width=width, color=[prod_color, col_color, rcy_color], edgecolor="black", linewidth=0.1)
 axs[1, 0].set_ylabel("Kilograms per capita")
@@ -92,11 +89,10 @@ axs[1, 0].set_xticks(ticks=x_indexes_comp)
 axs[1, 0].set_xticklabels(type)
 axs[1, 0].set_title("2019: Italy vs Europe average")
 
-# Nascondi le linee degli assi
 axs[1, 0].tick_params(left=False, bottom=False)
 
 
-# Quarto grafico (identico al primo) nella seconda riga a destra
+# Quarto grafico
 bar1 = axs[1, 1].bar(x_indexes_comp - width, [mkt_it[1], col_it[1], rcy_it[1]], width=width, color=[prod_color, col_color, rcy_color], edgecolor="black", linewidth=0.1)
 bar2 = axs[1, 1].bar(x_indexes_comp, [mkt[1], col[1], rcy[1]], width=width, color=[prod_color, col_color, rcy_color], edgecolor="black", linewidth=0.1)
 axs[1, 1].set_ylabel("Kilograms per capita")
@@ -104,16 +100,12 @@ axs[1, 1].set_xticks(ticks=x_indexes_comp)
 axs[1, 1].set_xticklabels(type)
 axs[1, 1].set_title("2020: Italy vs Europe average")
 
-# Nascondi le linee degli assi
 axs[1, 1].tick_params(left=False, bottom=False)
 
-# Nascondi i tick sull'asse y
 axs[0, 0].set_yticks([])
 axs[0, 1].set_yticks([])
-#axs[1, 0].set_yticks([])
-#axs[1, 1].set_yticks([])
 
-# Rimuovi i bordi da ogni subplot
+# Rimuovo i bordi da ogni subplot
 for ax in axs.flat:
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -122,7 +114,7 @@ for ax in axs.flat:
     ax.yaxis.set_ticks_position('none')
     ax.xaxis.set_ticks_position('none')
 
-# Legenda nella seconda riga, seconda colonna
+# Legenda
 fig.legend([bar1, bar2, bar3], ["Newly produced electronics", "Collected electronic waste", "Recycled electronic waste"],
            loc="upper center", bbox_to_anchor=(0.5, 0), ncol=3, fontsize="small")
 
