@@ -3,49 +3,60 @@ import geopandas as gpd
 from shapely.geometry import Point
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('dataset/global-data-on-sustainable-energy.csv')
+# Leggi il dataset
+df = pd.read_csv('global-data-on-sustainable-energy.csv')
 
+# Leggi il CSV contenente le informazioni sui continenti
 continents_df = pd.read_csv('continents2.csv')
 
-# Unisco i dati del dataframe con le informazioni sui continenti
+# Unisci i dati del tuo dataframe con le informazioni sui continenti
 df = pd.merge(df, continents_df, left_on='Entity', right_on='name', how='left')
 
-# Converto la colonna 'Renewable energy share in the total final energy consumption (%)' in valori numerici
+# Converti la colonna 'Renewable energy share in the total final energy consumption (%)' in numeri
 df['Renewable energy share in the total final energy consumption (%)'] = pd.to_numeric(df['Renewable energy share in the total final energy consumption (%)'], errors='coerce')
 
-# Carico i dati dei confini dei paesi e dei continenti
+# Filtro per includere solo i dati fino al 2017
+df = df[df['Year'] <= 2017]
+
+# Carica i dati dei confini dei paesi e dei continenti
 world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
 
-# Unisco il dataset con i confini del mondo basandosi sulle coordinate geografiche
+# Unisci il dataset con i confini del mondo basandosi sulle coordinate geografiche
 geometry = [Point(xy) for xy in zip(df['Longitude'], df['Latitude'])]
 gdf = gpd.GeoDataFrame(df, geometry=geometry)
 
-# Eseguo l'intersezione per ottenere il continente di ciascun punto
+# Esegui l'intersezione per ottenere il continente di ciascun punto
 gdf = gpd.sjoin(gdf, world[['geometry', 'continent']], op='within', how='left')
 
+# Inizializza la figura
 fig, ax = plt.subplots()
 
-# Per ciascun continente aggrego i dati a livello di continente
-for continent, continent_data in gdf.groupby('continent'):
+# Crea una mappa di colori per i continenti
+colors = ['#A6CEE3', '#B2DF8A', '#FB9A99', '#FDBF6F', '#CAB2D6', '#8FCC7F']
+
+# Per ciascun continente
+for i, (continent, continent_data) in enumerate(gdf.groupby('continent')):
+    # Aggrega i dati a livello di continente
     aggregated_data = continent_data.groupby('Year')['Renewable energy share in the total final energy consumption (%)'].mean()
 
-    
-    line, = ax.plot(aggregated_data.index, aggregated_data.values, label=None, linestyle='-')
+    # Plotta i dati con linee continue e colori distinti
+    line, = ax.plot(aggregated_data.index, aggregated_data.values, label=None, linestyle='-', color=colors[i])
 
+    # Aggiungi il nome del continente vicino al primo e all'ultimo punto della linea
     ax.annotate(continent, (aggregated_data.index[0], aggregated_data.values[0]),
                 textcoords="offset points", xytext=(0,5), ha='left', fontsize=8, color=line.get_color())
 
-ax.set_xlabel('')
+# Aggiungi etichette e titoli al grafico
 ax.set_ylabel('Renewable energy share in the total final energy consumption (%)')
 ax.set_title('Renewable energy share in the total final energy consumption (%) by Continent')
 
-# Imposto il formato degli anni su 4 cifre
+# Imposta il formato degli anni su 4 cifre
 ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: int(x)))
 
+# Rimuovi i bordi dalla figura e dagli assi
 ax.set_frame_on(False)
 ax.xaxis.set_ticks_position('none')
 ax.yaxis.set_ticks_position('none')
 
-plt.savefig("images/global_renew_en.png")
-
+# Mostra il grafico
 plt.show()
