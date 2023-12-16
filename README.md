@@ -4,5 +4,5 @@
 ### What is it about?
 The aim of this project is to show and make relevant the importance of _renewable energies_ and _waste recycling_ and the impact that _non-renewable energies_ have compared to the renewable ones.
 
-**In this repository** you can find the source code, the datasets and the generated images of the graphics.
-You can also find our final presentation.
+**In this repository** there are the source code, the datasets and the generated images of the graphics.
+Our final presentation can also be found in the home page of the project.
