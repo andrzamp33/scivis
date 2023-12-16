@@ -43,7 +43,7 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
 # Grafico 1
 ax1.barh(categories_1, values_1, color=colors_1)
 ax1.set_xlabel('Contribution (TWh)')
-ax1.set_title('Energy generation by source')
+ax1.set_title('Energy generation by source (1997-2017)')
 ax1.grid(False)
 for index, value in enumerate(values_1):
     ax1.text(value, index, f' {value}', ha='left', va='center', fontsize=8, color='black')
@@ -70,7 +70,7 @@ ax2.legend(ncols=len(category_names_2), bbox_to_anchor=(1, 0), loc='lower right'
 ax2.invert_yaxis()
 ax2.xaxis.set_visible(False)
 ax2.set_xlim(0, np.sum(data, axis=1).max())
-ax2.set_title('Energy generation by major countries')
+ax2.set_title('Energy generation by major countries (1997-2017)')
 
 ax2.spines['top'].set_visible(False)
 ax2.spines['right'].set_visible(False)
