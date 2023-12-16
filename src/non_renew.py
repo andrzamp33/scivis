@@ -20,7 +20,7 @@ fig, ax = plt.subplots()
 
 ax.barh(categories, values, color=colors)
 ax.set_xlabel('Contribution (TWh)')
-ax.set_title('Energy Generation by Source')
+ax.set_title('Energy Generation by Source (1997-2017)')
 
 ax.grid(False)
 
