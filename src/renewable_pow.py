@@ -27,6 +27,7 @@ plt.title('World data on renewable power generation (1990-2017)')
 matplotx.line_labels()
 plt.grid(False)
 sns.despine()
+plt.gcf().set_size_inches(len(years_renewable) // 2, 6)
 
 plt.savefig("renewable_plot.png")
 plt.show()
